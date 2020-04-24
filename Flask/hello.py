@@ -10,15 +10,19 @@ app = Flask(__name__)
 def index():
     return "Hello !"
 
-@app.route('/books')
-def load ():
-     
+@app.route('/books/<book>')
+def load (book):
+    
     PATH = os_path.abspath(os_path.split(__file__)[0])
     with open(PATH + '\\books.json') as json_data:
         data_dict = json.load(json_data)
-        print(data_dict)
-    res = data_dict[0]['authors'][0] = "W. Frank Ableson"
-    return res
+    #res = data_dict[0]
+    for x in data_dict:
+        if(x['title'] == book):
+            print("Titre : "+x['title'])
+            print("je suis dans le if : " + str(x))
+            resultat = x
+    return resultat
 
     
 if __name__ == '__main__':
